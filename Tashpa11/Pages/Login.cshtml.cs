@@ -16,10 +16,10 @@ namespace Tashpa11.Pages
 
         public IActionResult OnPost(string userName, string password)
         {
-            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Owner\OneDrive\DSH\Doron\sources\repos\Tashpa11\Tashpa11\App_Data\User.mdf;Integrated Security=True";
+            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\USER\OneDrive\DSH\Doron\sources\repos\Tashpa11\Tashpa11\App_Data\User.mdf;Integrated Security=True";
             SqlConnection con = new SqlConnection(connectionString);
             // בניית פקודת SQL
-            string SQLStr = $"SELECT * FROM Names WHERE UName = '{userName}' AND Pass = '{password}'";
+            string SQLStr = $"SELECT * FROM Person WHERE UserName = '{userName}' AND Password = '{password}'";
             SqlCommand cmd = new SqlCommand(SQLStr, con);
 
             // בניית DataSet
@@ -34,19 +34,19 @@ namespace Tashpa11.Pages
 
             {
 
-                Name name = new Name();
-                name.FName = ds.Tables[0].Rows[0]["FName"].ToString();
-                name.LName = ds.Tables[0].Rows[0]["LName"].ToString();
-                name.UName = ds.Tables[0].Rows[0]["UName"].ToString();
-                name.Admin = bool.Parse(ds.Tables[0].Rows[0]["Admin"].ToString());
-                string IsAdmin = (name.Admin == true) ? "Admin" : "NotAdmin";
+               Person person = new Person();
+                person.Name = ds.Tables[0].Rows[0]["Name"].ToString();
+                person.FName = ds.Tables[0].Rows[0]["FName"].ToString();
+                person.UserName = ds.Tables[0].Rows[0]["UserName"].ToString();
+                person.Admin = bool.Parse(ds.Tables[0].Rows[0]["Admin"].ToString());
+                string IsAdmin = (person.Admin == true) ? "Admin" : "NotAdmin";
 
                 HttpContext.Session.SetString("Admin", IsAdmin);
 
 
-                HttpContext.Session.SetString("Username", name.UName);
-                HttpContext.Session.SetString("FirstName", name.FName);
-                HttpContext.Session.SetString("LastName", name.LName);
+                HttpContext.Session.SetString("Username", person.UserName);
+                HttpContext.Session.SetString("FirstName", person.Name);
+                HttpContext.Session.SetString("LastName", person.FName);
 
                 return RedirectToPage("/Index");
             }

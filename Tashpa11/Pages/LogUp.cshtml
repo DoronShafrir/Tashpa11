@@ -1,0 +1,107 @@
+﻿@page
+@model Tashpa11.Pages.LogUpModel
+@{
+}
+<div>
+    <h1 style="margin-left:40%;">LogUp Form</h1>
+</div>
+<div class="row justify-content-center align-itms-center">
+    <div class="col-sm-11 col-md-9 col-lg-7 col-xl-5">
+        <div class="card h-100">
+            <div class="card-header"<h1>Login</h1>
+                    <div class="card-body">
+                        <form method="post">
+
+                    <table id="names">
+                        <tr>
+                            <td>User First Name</td>
+                            <td id="fName">
+                                <input type="text" name="firstName" onkeyup="checkName(this, 'fmsg')" />
+                            </td>
+                            <td id="fmsg" class="messages" runat="server"></td>
+                        </tr>
+                        <tr>
+                            <td>Last Name</td>
+                            <td id="lName">
+                                <input type="text" name="lastName" onkeyup="checkName(this, 'lmsg')" />
+                            </td>
+                            <td id="lmsg" class="messages"></td>
+                        </tr>
+                        <tr>
+                            <td>User Name</td>
+                            <td id="uName">
+                                <input type="text" name="userName" onkeyup="checkName(this, 'umsg')" />
+                            </td>
+                            <td id="umsg" class="messages" runat="server" style="color: red"></td>
+                        </tr>
+                        <tr>
+                            <td>Password</td>
+                            <td id="pName">
+                                <input type="password" name="password" onkeyup="checkPass(this)" />
+                            </td>
+                            <td id="pmsg" class="messages"></td>
+                        <tr>
+                            <td>E-Mail</td>
+                            <td id="email1">
+                                <input type="email" id="email" name="email" onkeyup="checkEmail(this)" />
+                            </td>
+                            <td id="emsg" class="messages"></td>
+                        </tr>
+                        <tr>
+                            <td>Phone</td>
+                            <td id="tel">
+                                <input type="tel" name="phone" onkeyup="checkTel(this)" />
+                            </td>
+                            <td id="tmsg" class="messages"></td>
+                        </tr>
+                        <tr>
+                            <td>Gender</td>
+                            <td id="gender">
+                                <input type="radio" name="gender" value="Male" id="Male">
+                                <label for="male">Male</label><br>
+                                <input type="radio" name="gender" value="Female" id="Female">
+                                <label for="female">Female</label>
+                            </td>
+                            <td id="gmsg" class="messages"></td>
+                        </tr>
+                        <tr>
+                            <td>Hobbies</td>
+                            <td id="hName">
+                                <input type="text" name="hobbies" onkeyup="checkHobbies(this)" />
+                            </td>
+                            <td id="hmsg" class="messages"></td>
+                        </tr>
+                        <tr>
+                            <td>Birth Date</td>
+                            <td>
+                                <input type="date" id="dName" name="birth">
+                            </td>
+                            <td id="dmsg" class="messages"></td>
+                        </tr>
+                        <tr>
+                            <td>Confirmation</td>
+                            <td>
+                                <label for="cName">please confirm that all above is correct</label>
+                                <input id="cName" type="checkbox" name="confirmation" onclick="clearConfirm()" />
+                            </td>
+                            <td id="cmsg" class="messages"></td>
+
+                        </tr>
+                    </table>
+
+
+
+        <input type="submit" name="submit" class="login" value="LogUp" onclick="return login1()" />
+        <input type="reset" class="reset" value="RESET" onclick="reset2('login-msg','password-msg')" />
+
+        <div class="mb-3 form-text text-danger " id="msgBox">
+        @Model.msg
+        </div>
+        <div class="check">
+            Check Something
+        </div>
+
+                        </form>
+                    <div>
+            </div>
+        </div>

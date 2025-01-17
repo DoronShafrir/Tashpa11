@@ -18,7 +18,7 @@ namespace Tashpa11.Mapping
         public string RenderAll()
         {
             string SQLStr = SelectAll();
-            string RenderTable = Helper.FetchTable(SQLStr, connectionString);
+            string RenderTable = App_Code.Helper.FetchTable(SQLStr, connectionString);
 
             return RenderTable;
         }

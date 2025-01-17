@@ -1,5 +1,10 @@
 ﻿using Microsoft.Data.SqlClient;
 using Tashpa11.Model;
+using Tashpa11.App_Code;
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace Tashpa11.Mapping
 {
@@ -18,7 +23,8 @@ namespace Tashpa11.Mapping
         public string RenderAllStudents()
         {
             string SQLStr = SelectAll();
-            string RenderTable = Helper.FetchTable(SQLStr, connectionString);
+            string RenderTable = App_Code.Helper.FetchTable(SQLStr, connectionString);
+          
             return RenderTable;
         }
 
@@ -171,7 +177,7 @@ namespace Tashpa11.Mapping
             prepartion += "<option>Student to add a course";
             foreach (var item in students)
             {
-                prepartion += $"<option value={item.PId}> Student Name:{item.Name} {item.FName} </ option >";
+                prepartion += $"<option MMM={item.PId}> Student Name:{item.Name} {item.FName} </ option >";
             }
             prepartion += "</select>";
             return prepartion;
@@ -222,7 +228,7 @@ namespace Tashpa11.Mapping
             prepartion += "<option>Student to be removed from course>";
             foreach (var item in students)
             {
-                prepartion += $"<option value={item.Id}> Name:{item.Name}   Course:{item.CourseName} </ option >";
+                prepartion += $"<option MMM={item.Id}> Name:{item.Name}   Course:{item.CourseName} </ option >";
             }
             prepartion += "</select>";
             return prepartion;
