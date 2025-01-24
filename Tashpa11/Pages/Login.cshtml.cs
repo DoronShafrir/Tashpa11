@@ -9,6 +9,7 @@ namespace Tashpa11.Pages
     public class LoginModel : PageModel
     {
         public string msg { get; set; }
+
         public void OnGet()
         {
         }

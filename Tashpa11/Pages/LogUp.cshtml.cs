@@ -19,7 +19,7 @@ namespace Tashpa11.Pages
                 string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\USER\OneDrive\DSH\Doron\sources\repos\Tashpa11\Tashpa11\App_Data\User.mdf;Integrated Security=True";
                 SqlConnection con = new SqlConnection(connectionString);
                 // בניית פקודת SQL
-                string SQLStr = $"SELECT * FROM Physics1 WHERE UserName = '{UserName}'";
+                string SQLStr = $"SELECT * FROM Person WHERE UserName = '{UserName}'";
                 SqlCommand cmd = new SqlCommand(SQLStr, con);
 
                 // בניית DataSet
@@ -45,8 +45,8 @@ namespace Tashpa11.Pages
                     try
                     {
 
-                        dr["FirstName"] = Name;
-                        dr["LastName"] = FName;
+                        dr["Name"] = Name;
+                        dr["FName"] = FName;
                         dr["UserName"] = UserName;
                         dr["Password"] = Password;
                         //dr["BirthDate"] = Request.Form["birth"];
