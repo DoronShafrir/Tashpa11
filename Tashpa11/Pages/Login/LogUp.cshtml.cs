@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
-namespace Tashpa11.Pages
+namespace Tashpa11.Pages.Login
 {
     public class LogUpModel : PageModel
     {
@@ -12,7 +12,7 @@ namespace Tashpa11.Pages
         public void OnGet()
         {
         }
-        public IActionResult OnPost(string Name,string FName, string UserName, string Password )
+        public IActionResult OnPost(string Name, string FName, string UserName, string Password)
         {
             {
                 // בדיקה אם קיים שם משתמש
@@ -59,10 +59,11 @@ namespace Tashpa11.Pages
                         SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
                         adapter.UpdateCommand = builder.GetInsertCommand();
                         adapter.Update(ds, "names");
-                      
+
                         return RedirectToPage("Index");
                     }
-                    catch {
+                    catch
+                    {
                         return Page();
 
                     }

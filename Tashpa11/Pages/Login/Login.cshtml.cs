@@ -4,7 +4,7 @@ using Microsoft.Data.SqlClient;
 using System.Data;
 using Tashpa11.Model;
 
-namespace Tashpa11.Pages
+namespace Tashpa11.Pages.Login
 {
     public class LoginModel : PageModel
     {
@@ -35,12 +35,12 @@ namespace Tashpa11.Pages
 
             {
 
-               Person person = new Person();
+                Person person = new Person();
                 person.Name = ds.Tables[0].Rows[0]["Name"].ToString();
                 person.FName = ds.Tables[0].Rows[0]["FName"].ToString();
                 person.UserName = ds.Tables[0].Rows[0]["UserName"].ToString();
                 person.Admin = bool.Parse(ds.Tables[0].Rows[0]["Admin"].ToString());
-                string IsAdmin = (person.Admin == true) ? "Admin" : "NotAdmin";
+                string IsAdmin = person.Admin == true ? "Admin" : "NotAdmin";
 
                 HttpContext.Session.SetString("Admin", IsAdmin);
 

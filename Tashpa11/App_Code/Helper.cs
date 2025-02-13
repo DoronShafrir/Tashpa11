@@ -6,7 +6,7 @@ namespace Tashpa11.App_Code
     public static class Helper
     {
         public const string DBName = "Database.mdf";
-        public const string tblName = "Users";
+        public const string tblName = "Names";
         //public const string conString = @"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = |DataDirectory|\Physics.mdf;Integrated Security=True";
 
         public static String FetchTable(string SQLStr, string conString)
@@ -23,7 +23,7 @@ namespace Tashpa11.App_Code
             /***********Build Adapter **********/
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
 
-            /***********Get data from DB and fill it into the database **********/
+            /***********Get data from DB and fill it into the dataset **********/
             adapter.Fill(ds, tblName);
 
             /***************Build the table and render it *************************/

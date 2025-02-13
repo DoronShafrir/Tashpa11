@@ -1,31 +1,34 @@
 ﻿using Microsoft.Data.SqlClient;
-using Tashpa11.Model;
 using Tashpa11.App_Code;
-using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Data;
-using Tashpa11.Mapping;
+using Tashpa11.Model;
 
 namespace Tashpa11.Mapping
 {
-    public class StudentsDB
+    public class IndividualStudentDB
     {
+        
+        string StudentName;
+
+        public IndividualStudentDB(string studentName)
+        {
+            this.StudentName = studentName;
+        }
+
         private string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\USER\OneDrive\DSH\Doron\sources\repos\Tashpa11\Tashpa11\App_Data\User.mdf;Integrated Security=True";
 
-        public string SelectAll()
+        public string SelectIndividualStudentCourses()
         {
+            ;
             Students students = new Students();
 
-            string command = "SELECT Person.Name, Courses.CourseName FROM Student INNER JOIN Person ON  SId=Person.PId JOIN  Courses ON Student.CourseId = Courses.CId;";
+            string command = $"SELECT Person.Name, Courses.CourseName FROM Student INNER JOIN Person ON  SId=Person.Id JOIN  Courses ON Student.CourseId = Courses.CId WHERE Person.Name = '{StudentName}' ;";
 
             return command;
         }
-        public string RenderAllStudents()
+        public string RenderAllCourses()
         {
-            string SQLStr = SelectAll();
-            string RenderTable = App_Code.Helper.FetchTable(SQLStr, connectionString);
-          
+            string SQLStr = SelectIndividualStudentCourses();
+            string RenderTable = Helper.FetchTable(SQLStr, connectionString);
             return RenderTable;
         }
 
@@ -90,7 +93,7 @@ namespace Tashpa11.Mapping
                 }
             return records;
         }
-        //checkmname() checks if teh anme exist in the people table if yes return the PId and if not return 0
+        //checkmname() checks if the name exists in the people table if yes return the PId and if not return 0
         public int CheckStudent(string item)
         {
             int recordId = 0;
@@ -178,7 +181,7 @@ namespace Tashpa11.Mapping
             prepartion += "<option>Student to add a course";
             foreach (var item in students)
             {
-                prepartion += $"<option MMM={item.PId}> Student Name:{item.Name} {item.FName} </ option >";
+                prepartion += $"<option value={item.PId}> Student Name:{item.Name} {item.FName} </ option >";
             }
             prepartion += "</select>";
             return prepartion;
@@ -187,6 +190,7 @@ namespace Tashpa11.Mapping
         public string PrepareStudenstsDropDownListToDelete()
         {
             Students students = new Students();
+
             using (SqlConnection connection = new SqlConnection(connectionString))
             using (SqlCommand command = new SqlCommand("SELECT Student.Id, Person.Name, Courses.CourseName FROM Student INNER JOIN Person ON  SId=Person.PId JOIN  Courses ON Student.CourseId = Courses.CId;", connection))
             {
@@ -229,11 +233,10 @@ namespace Tashpa11.Mapping
             prepartion += "<option>Student to be removed from course>";
             foreach (var item in students)
             {
-                prepartion += $"<option MMM={item.Id}> Name:{item.Name}   Course:{item.CourseName} </ option >";
+                prepartion += $"<option value={item.Id}> Name:{item.Name}   Course:{item.CourseName} </ option >";
             }
             prepartion += "</select>";
             return prepartion;
         }
-
     }
 }
