@@ -16,6 +16,8 @@ namespace Tashpa11.Pages.Students
         public string deleteButton { get; set; }
         public string msg { get; set; }
         public string List { get; set; }
+        public string  DisplayList { get; set; }
+        public string insertMSG { get; set; }
 
         public void OnGet()
         {
@@ -29,6 +31,35 @@ namespace Tashpa11.Pages.Students
             string studentName = HttpContext.Session.GetString("Username").ToString();
             IndividualStudentDB db = new IndividualStudentDB(studentName);
             List = db.RenderAllCourses();
+        }
+
+        public  void OnPostShowAddCourses()
+        {
+            DisplayList="display:none";
+            active_input="display:block";
+            submitNewButton="display:block";
+            delete_input="display:none";
+            deleteButton="display:none";
+        }
+        public void OnPostShowDeleteCourse()
+        {
+            DisplayList = "display:none";
+            active_input = "display:none";
+            submitNewButton = "display:none";
+            delete_input = "display:block";
+            deleteButton = "display:block";
+        }
+        public void OnPostInsertCourse(string newCourseName, string newCourseNumber, string newCourseTeacher)
+        {
+            Course newCourse = new Course();
+            CoursesDB db = new CoursesDB();
+            newCourse.CourseName = newCourseName;
+            newCourse.CourseNumber = newCourseNumber;
+            newCourse.Name = newCourseTeacher;
+
+            int records = db.Insert(newCourse);
+            if (records == 1) { insertMSG = "Course Added Successfuly"; }
+            else { insertMSG = "Could Not Add Course !!!"; };
         }
     }
 }

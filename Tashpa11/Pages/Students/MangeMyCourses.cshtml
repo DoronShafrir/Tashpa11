@@ -2,35 +2,43 @@
 @model Tashpa11.Pages.Students.MangeMyCoursesModel
 @{
 }
-<div class="active_buttons"">
-    <input type="button" value="Show All Courses" class="admin-button" onserverclick="RenderCourses"  />
-    <button type="button" value="Add Course" class="admin-button" onserverclick="ShowAddCourses" >Add Course</button>
-    <button type="button" value="Delete Course" class="admin-button" onserverclick="ShowDeleteCourse" >Delete Course</button>
+<div class="active_buttons">
+    <form method="post" asp-page-handler="RenderCourses">
+        <button type="submit" value="Show All Courses" class="btn btn-primary"/>Show All Courses</button>
+    </form>
+    <form method="post" asp-page-handler="ShowAddCourses">
+        <button type="submit" value="Add Course" class="btn btn-primary">Add Course</button>
+    </form>
+    <form method="post" asp-page-handler="ShowDeleteCourse">
+        <button type="submit" value="Delete Course" class="btn btn-primary">Delete Course</button>
+    </form>
 </div>
-<div id="List">@Html.Raw(@Model.List)</div>
+<div id="List" style="@Model.DisplayList">@Html.Raw(@Model.List)</div>
 
 
   @* Add Insert part *@
-
+<form method="post" asp-page-handler="InsertCourse">
 <div id="active_input" style="@Model.active_input">
-    <input type="text" id="newCourseName" class="input_field" placeholder="Course Name" runat="server" />
-    <input type="text" id="newCourseNumber" class="input_field" placeholder="Course Number" runat="server" />
-    <input type="text" id="newCourseTeacher" class="input_field" placeholder="Teacher" runat="server" />
+        <input type="text" id="newCourseName" name="newCourseName" class="input_field" placeholder="Course Name" />
+        <input type="text" id="newCourseNumber" name="newCourseNumber" class="input_field" placeholder="Course Number" />
+        <input type="text" id="newCourseTeacher" name="newCourseTeacher" class="input_field" placeholder="Teacher" />
+
+        <button type="submit" value="Insert" id="submitNewButton" style="@Model.submitNewButton" />
+        <div style="color: red; font-size: 1.0em; position: absolute">
+        @Model.insertMSG
+    </div>
 </div>
-<div >
-    <input type="button" value="Insert" id="submitNewButton" style="@Model.submitNewButton" onserverclick="InsertCourse" runat="server" />
-    <span id="insertMSG" style="color: red; font-size: 1.5em; position: absolute" runat="server"></span>
-</div>
+</form>
 
   @* Delete part *@
-
+<form method="post" asp-page-handler="DeleteCourse">
 <div id="delete_input" style="@Model.delete_input">
-    <input type="text" id="deleteCourseName" class="input_field" placeholder="Course Name to Remove" runat="server" />
-    <input type="text" id="deleteCourseNumber" class="input_field" placeholder="Course Number to Remove" runat="server" />
-    <input type="text" id="deleteCourseTeacher" class="input_field" placeholder="Teacher to Remove" runat="server" />
+    <input type="text" id="deleteCourseName" class="input_field" placeholder="Course Name to Remove"  />
+    <input type="text" id="deleteCourseNumber" class="input_field" placeholder="Course Number to Remove"  />
+    <input type="text" id="deleteCourseTeacher" class="input_field" placeholder="Teacher to Remove"  />
 </div>
 <div >
-    <input type="button" value="Delete" id="deleteButton" style="@Model.deleteButton"  onserverclick="DeleteCourse"  />
+    <input type="button" value="Delete" id="deleteButton" style="@Model.deleteButton"    />
     <span id="deleteMSG" style="color: red; font-size: 1.5em; position: absolute" ></span>
 </div>
-@Model.msg
+</form>
