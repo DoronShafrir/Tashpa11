@@ -1,12 +1,13 @@
 ﻿using Microsoft.Data.SqlClient;
 using System.Data;
+using Tashpa11.App_Code;
 using Tashpa11.Model;
 
 namespace Tashpa11.Mapping
 {
     public class CoursesDB
     {
-        private string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Physics.mdf;Integrated Security=True";
+        private string connectionString = Imp_Data.ConString;
         SqlConnection connection;
         SqlCommand command;
         SqlDataReader reader;
@@ -16,11 +17,11 @@ namespace Tashpa11.Mapping
             command = new SqlCommand();
             command.Connection = connection;
         }
-        public Courses SelectAll()
+        public Coursess SelectAll()
         {
-            Courses courses = new Courses();
-            command.CommandText = "SELECT Courses.CourseName, Courses.CourseNumber, Person.Name " +
-                "FROM Courses INNER JOIN Person ON Courses.ResponsibleTeacher=Person.PId;";
+            Coursess courses = new Coursess();
+            command.CommandText = "SELECT Courses.CId, Courses.CourseName, Courses.CourseNumber, Person.Name " +
+                "FROM Courses INNER JOIN Person ON Courses.ResponsibleTeacher=Person.Id;";
             try
             {
                 command.Connection = connection;
@@ -30,6 +31,7 @@ namespace Tashpa11.Mapping
                 while (reader.Read())
                 {
                     course = new Course();
+                    course.CId = int.Parse(reader["CId"].ToString());
                     course.CourseName = reader["CourseName"].ToString();
                     course.CourseNumber = reader["CourseNumber"].ToString();
                     course.Name = reader["Name"].ToString();
@@ -53,7 +55,7 @@ namespace Tashpa11.Mapping
 
         public string RenderAllCourses()
         {
-            Courses courses = SelectAll();
+            Coursess courses = SelectAll();
             string RenderTable = "";
             foreach (var item in courses)
             {
@@ -121,7 +123,7 @@ namespace Tashpa11.Mapping
         }
         public string PrepareCoursestDropDownList()
         {
-            Courses courses = new Courses();
+            Coursess courses = new Coursess();
             using (SqlConnection connection = new SqlConnection(connectionString))
             using (SqlCommand command = new SqlCommand("SELECT Courses.CId, Courses.CourseName FROM  Courses;", connection))
             {
@@ -170,7 +172,7 @@ namespace Tashpa11.Mapping
         public int CheckName(string name)
         {
             int recordId = 0;
-            command.CommandText = $"SELECT PId FROM Person WHERE Name = '{name}';";
+            command.CommandText = $"SELECT Id FROM Person WHERE Name = '{name}';";
             try
             {
                 connection.Open();

@@ -14,7 +14,7 @@ namespace Tashpa11.Mapping
             this.StudentName = studentName;
         }
 
-        private string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\USER\OneDrive\DSH\Doron\sources\repos\Tashpa11\Tashpa11\App_Data\User.mdf;Integrated Security=True";
+        private string connectionString = Imp_Data.ConString;
 
         public string SelectIndividualStudentCourses()
         {

@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
+using System;
 using System.Data;
+using Tashpa11.App_Code;
 using Tashpa11.Model;
 
 namespace Tashpa11.Pages.Login
@@ -17,7 +19,9 @@ namespace Tashpa11.Pages.Login
 
         public IActionResult OnPost(string userName, string password)
         {
-            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\USER\OneDrive\DSH\Doron\sources\repos\Tashpa11\Tashpa11\App_Data\User.mdf;Integrated Security=True";
+            
+            string connectionString = Imp_Data.ConString;
+            //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\USER\OneDrive\DSH\Doron\sources\repos\Tashpa11\Tashpa11\App_Data\User.mdf;Integrated Security=True";
             SqlConnection con = new SqlConnection(connectionString);
             // בניית פקודת SQL
             string SQLStr = $"SELECT * FROM Person WHERE UserName = '{userName}' AND Password = '{password}'";

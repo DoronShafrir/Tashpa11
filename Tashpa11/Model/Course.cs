@@ -11,11 +11,11 @@
         //}
     }
 
-    public class Courses : List<Course>
+    public class Coursess : List<Course>
     {
-        public Courses() { }
+        public Coursess() { }
 
-        public Courses(IEnumerable<Course> list)
+        public Coursess(IEnumerable<Course> list)
             : base(list)
         {
 

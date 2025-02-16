@@ -3,8 +3,8 @@
 @{
 }
 <div class="active_buttons">
-    <form method="post" asp-page-handler="RenderCourses">
-        <button type="submit" value="Show All Courses" class="btn btn-primary"/>Show All Courses</button>
+    <form method="get" asp-page-handler="RenderCourses">
+        <button type="submit" value="Show All Courses" class="btn btn-primary" >Show All Courses</button>
     </form>
     <form method="post" asp-page-handler="ShowAddCourses">
         <button type="submit" value="Add Course" class="btn btn-primary">Add Course</button>
@@ -13,32 +13,36 @@
         <button type="submit" value="Delete Course" class="btn btn-primary">Delete Course</button>
     </form>
 </div>
-<div id="List" style="@Model.DisplayList">@Html.Raw(@Model.List)</div>
+<form method="post" asp-page-handler="ShowAddCourses">
+    <div id="List" style="@Model.DisplayList">@Html.Raw(@Model.List)</div>
+</form>
 
-
-  @* Add Insert part *@
+@* Add Insert part *@
 <form method="post" asp-page-handler="InsertCourse">
-<div id="active_input" style="@Model.active_input">
+    <div id="active_input" style="@Model.active_input">
         <input type="text" id="newCourseName" name="newCourseName" class="input_field" placeholder="Course Name" />
         <input type="text" id="newCourseNumber" name="newCourseNumber" class="input_field" placeholder="Course Number" />
         <input type="text" id="newCourseTeacher" name="newCourseTeacher" class="input_field" placeholder="Teacher" />
 
-        <button type="submit" value="Insert" id="submitNewButton" style="@Model.submitNewButton" />
+        <button type="submit" value="Insert" id="submitNewButton" style="@Model.insert_button">
+            Insert
+        </button>
         <div style="color: red; font-size: 1.0em; position: absolute">
-        @Model.insertMSG
+            @Model.insertMSG
+        </div>
     </div>
-</div>
 </form>
 
-  @* Delete part *@
+@* Delete part *@
 <form method="post" asp-page-handler="DeleteCourse">
-<div id="delete_input" style="@Model.delete_input">
-    <input type="text" id="deleteCourseName" class="input_field" placeholder="Course Name to Remove"  />
-    <input type="text" id="deleteCourseNumber" class="input_field" placeholder="Course Number to Remove"  />
-    <input type="text" id="deleteCourseTeacher" class="input_field" placeholder="Teacher to Remove"  />
-</div>
-<div >
-    <input type="button" value="Delete" id="deleteButton" style="@Model.deleteButton"    />
-    <span id="deleteMSG" style="color: red; font-size: 1.5em; position: absolute" ></span>
-</div>
+    <div id="delete_input" style="@Model.delete_input">
+        <input type="text" id="deleteCourseName" class="input_field" placeholder="Course Name to Remove" />
+        <input type="text" id="deleteCourseNumber" class="input_field" placeholder="Course Number to Remove" />
+        <input type="text" id="deleteCourseTeacher" class="input_field" placeholder="Teacher to Remove" />
+    </div>
+    <div>
+        <input type="button" value="Delete" id="deleteButton" style="@Model.deleteButton" />
+        <div style="color: red; font-size: 1.0em; position: absolute">
+            @Model.deleteMSG
+    </div>
 </form>
