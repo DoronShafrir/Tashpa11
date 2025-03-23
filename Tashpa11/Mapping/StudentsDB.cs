@@ -6,28 +6,75 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
 using Tashpa11.Mapping;
+using System.Reflection.PortableExecutable;
 
 namespace Tashpa11.Mapping
 {
     public class StudentsDB
     {
-        private string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Owner\OneDrive\DSH\Doron\sources\repos\Tashpa11\Tashpa11\App_Data\User.mdf;Integrated Security=True";
+        private string connectionString = Imp_Data.ConString;
+        SqlConnection connection;
+        SqlCommand command;
+        SqlDataReader reader;
 
-        public string SelectAll()
+        public StudentsDB()
         {
-            Students students = new Students();
-
-            string command = "SELECT Person.Name, Courses.CourseName FROM Student INNER JOIN Person ON  SId=Person.PId JOIN  Courses ON Student.CourseId = Courses.CId;";
-
-            return command;
+            connection = new SqlConnection(connectionString);
+            command = new SqlCommand();
+            command.Connection = connection;
         }
-        public string RenderAllStudents()
+
+        public Studentss SelectAll()
         {
-            string SQLStr = SelectAll();
-            string RenderTable = App_Code.Helper.FetchTable(SQLStr, connectionString);
+            Studentss students = new Studentss();
+
+            //string command = "SELECT Person.Name, Courses.CourseName FROM Student INNER JOIN Person ON  SId=Person.PId JOIN  Courses ON Student.CourseId = Courses.CId;";
+
+            
+            command.CommandText = "SELECT student_person.Name AS StudentName, Courses.CourseName, " +
+    "teacher_person.Name AS TeacherName " +
+    "FROM Student " +
+    "JOIN Person AS student_person ON Student.SId = student_person.Id " +
+    "JOIN Courses ON Student.CourseId = Courses.CId " +
+    "JOIN Person AS teacher_person ON Courses.ResponsibleTeacher = teacher_person.Id;";
+            try
+            {
+                command.Connection = connection;
+                connection.Open();
+                reader = command.ExecuteReader();
+                Student student;
+                while (reader.Read())
+                {
+                    student = new Student();
+                    //student.SId = int.Parse(reader["SId"].ToString());
+                    student.Name = reader["StudentName"].ToString();
+                    student.CourseName = reader["CourseName"].ToString();
+                    student.TeacherName = reader["TeacherName"].ToString();
+                    
+                    
+                    students.Add(student);
+                }
+            }
+            catch (Exception e)
+            {
+            }
+            finally
+            {
+                if (reader != null)
+                    reader.Close();
+
+                if (connection.State == ConnectionState.Open)
+                    connection.Close();
+            }
+            return students;
+        }
+        //public string RenderAllStudents()
+        //{
+        //    string SQLStr = SelectAll();
+        //    string RenderTable = App_Code.Helper.FetchTable(SQLStr, connectionString);
           
-            return RenderTable;
-        }
+        //    return RenderTable;
+        //}
 
         //public string CreateTableLIne(Student item)
         //{
@@ -137,7 +184,7 @@ namespace Tashpa11.Mapping
 
         public string PrepareStudenstsDropDownList()
         {
-            Students students = new Students();
+            Studentss students = new Studentss();
             using (SqlConnection connection = new SqlConnection(connectionString))
             //using (SqlCommand command = new SqlCommand("SELECT Student.SId, Person.Name FROM Student, Person WHERE Student.SId=Person.PId GROUP BY  Person.Name, Student.SId ;", connection))
             using (SqlCommand command = new SqlCommand("SELECT  Person.PId, Person.Name, Person.FName FROM Person WHERE Teacher = 0;", connection))
@@ -186,7 +233,7 @@ namespace Tashpa11.Mapping
 
         public string PrepareStudenstsDropDownListToDelete()
         {
-            Students students = new Students();
+            Studentss students = new Studentss();
             using (SqlConnection connection = new SqlConnection(connectionString))
             using (SqlCommand command = new SqlCommand("SELECT Student.Id, Person.Name, Courses.CourseName FROM Student INNER JOIN Person ON  SId=Person.PId JOIN  Courses ON Student.CourseId = Courses.CId;", connection))
             {

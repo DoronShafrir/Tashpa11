@@ -5,12 +5,13 @@
         public int Id { get; set; }
         public int SId { get; set; }
         public int CourseId { get; set; }
+        public string TeacherName { get; set; }
     }
 
-    public class Students : List<Student>
+    public class Studentss : List<Student>
     {
-        public Students() { }
+        public Studentss() { }
 
-        public Students(IEnumerable<Student> list) : base(list) { }
+        public Studentss(IEnumerable<Student> list) : base(list) { }
     }
 }

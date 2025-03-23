@@ -19,7 +19,7 @@ namespace Tashpa11.Mapping
         public string SelectIndividualStudentCourses()
         {
             ;
-            Students students = new Students();
+            Studentss students = new Studentss();
 
             string command = $"SELECT Person.Name, Courses.CourseName FROM Student INNER JOIN Person ON  SId=Person.Id JOIN  Courses ON Student.CourseId = Courses.CId WHERE Person.Name = '{StudentName}' ;";
 
@@ -140,7 +140,7 @@ namespace Tashpa11.Mapping
 
         public string PrepareStudenstsDropDownList()
         {
-            Students students = new Students();
+            Studentss students = new Studentss();
             using (SqlConnection connection = new SqlConnection(connectionString))
             //using (SqlCommand command = new SqlCommand("SELECT Student.SId, Person.Name FROM Student, Person WHERE Student.SId=Person.PId GROUP BY  Person.Name, Student.SId ;", connection))
             using (SqlCommand command = new SqlCommand("SELECT  Person.PId, Person.Name, Person.FName FROM Person WHERE Teacher = 0;", connection))
@@ -189,7 +189,7 @@ namespace Tashpa11.Mapping
 
         public string PrepareStudenstsDropDownListToDelete()
         {
-            Students students = new Students();
+            Studentss students = new Studentss();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             using (SqlCommand command = new SqlCommand("SELECT Student.Id, Person.Name, Courses.CourseName FROM Student INNER JOIN Person ON  SId=Person.PId JOIN  Courses ON Student.CourseId = Courses.CId;", connection))
