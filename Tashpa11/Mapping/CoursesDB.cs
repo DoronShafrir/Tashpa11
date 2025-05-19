@@ -101,8 +101,8 @@ namespace Tashpa11.Mapping
             int records = 0;
             string arg1 = course.CourseName;
             string arg2 = course.CourseNumber;
-            int arg3 = CheckName(course.Name);
-            if (!(arg3 > 0)) return 0;
+            int arg3 = course.ResponsibleTeacher;
+            //if (!(arg3 > 0)) return 0;
 
             command.CommandText = "DELETE FROM Courses  " +
                 $"WHERE CourseName ='{arg1}' OR CourseNumber = '{arg2}' OR ResponsibleTeacher =  '{arg3}'; ";

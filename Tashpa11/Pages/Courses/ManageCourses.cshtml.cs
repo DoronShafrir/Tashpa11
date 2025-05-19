@@ -81,11 +81,17 @@ namespace Tashpa11.Pages.Courses
         public void OnPostDeleteCourse()
         {
 
+            DisplayList = "display:none";
+            active_input = "display:none";
+            insert_button = "display:none";
+            delete_input = "display:block";
+            deleteButton = "display:block";
+
             CoursesDB db = new CoursesDB();
 
             int records = db.DeleteCourse(dCourse);
-            if (records == 1) { deleteMSG = "</br>Course Deleted Successfuly"; }
-            else { deleteMSG = "</br>Could Not Delete Course !!!"; }
+            if (records == 1) { deleteMSG = "Course Deleted Successfuly"; }
+            else { deleteMSG = "Could Not Delete Course !!!"; }
             ;
         }
     }

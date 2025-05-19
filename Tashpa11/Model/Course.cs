@@ -6,9 +6,7 @@
         public string CourseName { get; set; }
         public string CourseNumber { get; set; }
         public int ResponsibleTeacher { get; set; }
-        //public Course() :base()
-        //{ 
-        //}
+        
     }
 
     public class Coursess : List<Course>
