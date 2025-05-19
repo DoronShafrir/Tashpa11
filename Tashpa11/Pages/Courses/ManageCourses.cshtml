@@ -71,9 +71,9 @@
     @* Delete part *@
     <form method="post" asp-page-handler="DeleteCourse">
         <div id="delete_input" style="@Model.delete_input">
-            <input type="text" id="deleteCourseName" class="input_field" placeholder="Course Name to Remove" />
-            <input type="text" id="deleteCourseNumber" class="input_field" placeholder="Course Number to Remove" />
-            <input type="text" id="deleteCourseTeacher" class="input_field" placeholder="Teacher to Remove" />
+            <input type="text" asp-for="dCourse.Name"  class="input_field" placeholder="Course Name to Remove" />
+            <input type="text" asp-for="dCourse.CId" class="input_field" placeholder="Course Number to Remove" />
+            <input type="text" asp-for="dCourse.ResponsibleTeacher" class="input_field" placeholder="Teacher to Remove" />
         </div>
         <div>
             <input type="button" value="Delete" id="deleteButton" style="@Model.deleteButton" />

@@ -16,8 +16,10 @@ namespace Tashpa11.Pages.Courses
         public string insertMSG { get; set; }
         public string insert_button { get; set; }
         public string deleteMSG { get; set; }
-        public Coursess List { get; set; } = new Coursess(); 
-        public Course course { get; set; } = new Course(); 
+        public Coursess List { get; set; } = new Coursess();
+        public Course course { get; set; } = new Course();
+        [BindProperty]
+        public Course dCourse { get; set; }
 
 
         public void OnGet()
@@ -26,7 +28,7 @@ namespace Tashpa11.Pages.Courses
             submitNewButton = "display:none";
             DisplayList = "display:block";
             delete_input = "display:none";
-            deleteButton = "display:none";                       
+            deleteButton = "display:none";
             CoursesDB db = new CoursesDB();
             List = db.SelectAll();
         }
@@ -73,7 +75,18 @@ namespace Tashpa11.Pages.Courses
                 insert_button = "disply:none";
                 insertMSG = "Course Added Successfuly";
             }
-            else { insertMSG = "Could Not Add Course !!!"; };
+            else { insertMSG = "Could Not Add Course !!!"; }
+            ;
+        }
+        public void OnPostDeleteCourse()
+        {
+
+            CoursesDB db = new CoursesDB();
+
+            int records = db.DeleteCourse(dCourse);
+            if (records == 1) { deleteMSG = "</br>Course Deleted Successfuly"; }
+            else { deleteMSG = "</br>Could Not Delete Course !!!"; }
+            ;
         }
     }
 }
