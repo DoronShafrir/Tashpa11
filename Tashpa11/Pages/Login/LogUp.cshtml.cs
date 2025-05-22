@@ -27,7 +27,7 @@ namespace Tashpa11.Pages.Login
             string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\USER\OneDrive\DSH\Doron\sources\repos\Tashpa11\Tashpa11\App_Data\User.mdf;Integrated Security=True";
             SqlConnection con = new SqlConnection(connectionString);
             // בניית פקודת SQL
-            string SQLStr = $"SELECT * FROM Person WHERE UserName = '{UserName}'";
+            string SQLStr = $"SELECT * FROM Person WHERE UserName = '{person.UserName}'";
             SqlCommand cmd = new SqlCommand(SQLStr, con);
 
             // בניית DataSet
@@ -53,12 +53,12 @@ namespace Tashpa11.Pages.Login
                 try
                 {
 
-                    dr["Name"] = Name;
-                    dr["FName"] = FName;
-                    dr["UserName"] = UserName;
-                    dr["Password"] = Password;
-                    //dr["BirthDate"] = Request.Form["birth"];
-                    //dr["Email"] = Request.Form["email"];
+                    dr["Name"] = person.Name;
+                    dr["FName"] = person.FName;
+                    dr["UserName"] = person.UserName;
+                    dr["Password"] = person.Password;
+                    dr["Admin"] = bool.Parse(AdminYN.ToString());
+                    dr["Teacher"] = bool.Parse(TeacherYN.ToString());
                     //dr["Admin"] = 0;
                     ds.Tables["names"].Rows.Add(dr);
 
@@ -68,7 +68,7 @@ namespace Tashpa11.Pages.Login
                     adapter.UpdateCommand = builder.GetInsertCommand();
                     adapter.Update(ds, "names");
 
-                    return RedirectToPage("Index");
+                    return RedirectToPage("/Index");
                 }
                 catch
                 {
