@@ -9,100 +9,80 @@
 <div class="row justify-content-center align-itms-center">
     <div class="col-sm-11 col-md-9 col-lg-7 col-xl-5">
         <div class="card h-100">
-            <div class="card-header"<h1>Login</h1>
-                    <div class="card-body">
-                        <form method="post">
+            <div class="card-header">
+                <div class="card-body">
+                    <form method="post">
 
-                    <table id="names">
-                        <tr>
-                            <td>User First Name</td>
-                            <td id="fName">
-                                <input type="text" name="Name" onkeyup="checkName(this, 'fmsg')" />
-                            </td>
-                            <td id="fmsg" class="messages" runat="server"></td>
-                        </tr>
-                        <tr>
-                            <td>Last Name</td>
-                            <td id="lName">
-                                <input type="text" name="FName" onkeyup="checkName(this, 'lmsg')" />
-                            </td>
-                            <td id="lmsg" class="messages"></td>
-                        </tr>
-                        <tr>
-                            <td>User Name</td>
-                            <td id="uName">
-                                <input type="text" name="UserName" onkeyup="checkName(this, 'umsg')" />
-                            </td>
-                            <td id="umsg" class="messages" runat="server" style="color: red"></td>
-                        </tr>
-                        <tr>
-                            <td>Password</td>
-                            <td id="pName">
-                                <input type="password" name="Password" onkeyup="checkPass(this)" />
-                            </td>
-                            <td id="pmsg" class="messages"></td>
-                        <tr>
-                            <td>E-Mail</td>
-                            <td id="email1">
-                                <input type="email" id="email" name="email" onkeyup="checkEmail(this)" />
-                            </td>
-                            <td id="emsg" class="messages"></td>
-                        </tr>
-                        <tr>
-                            <td>Phone</td>
-                            <td id="tel">
-                                <input type="tel" name="phone" onkeyup="checkTel(this)" />
-                            </td>
-                            <td id="tmsg" class="messages"></td>
-                        </tr>
-                        <tr>
-                            <td>Gender</td>
-                            <td id="gender">
-                                <input type="radio" name="gender" value="Male" id="Male">
-                                <label for="male">Male</label><br>
-                                <input type="radio" name="gender" value="Female" id="Female">
-                                <label for="female">Female</label>
-                            </td>
-                            <td id="gmsg" class="messages"></td>
-                        </tr>
-                        <tr>
-                            <td>Hobbies</td>
-                            <td id="hName">
-                                <input type="text" name="hobbies" onkeyup="checkHobbies(this)" />
-                            </td>
-                            <td id="hmsg" class="messages"></td>
-                        </tr>
-                        <tr>
-                            <td>Birth Date</td>
-                            <td>
-                                <input type="date" id="dName" name="birth">
-                            </td>
-                            <td id="dmsg" class="messages"></td>
-                        </tr>
-                        <tr>
-                            <td>Confirmation</td>
-                            <td>
-                                <label for="cName">please confirm that all above is correct</label>
-                                <input id="cName" type="checkbox" name="confirmation" onclick="clearConfirm()" />
-                            </td>
-                            <td id="cmsg" class="messages"></td>
+                        <table id="names">
+                            <tr>
+                                <td>User First Name</td>
+                                <td id="fName">
+                                    <input type="text" asp-for="person.Name" onkeyup="checkName(this, 'fmsg')" />
+                                </td>
+                                <td id="fmsg" class="messages" runat="server"></td>
+                            </tr>
+                            <tr>
+                                <td>Last Name</td>
+                                <td id="lName">
+                                    <input type="text" asp-for="person.FName" onkeyup="checkName(this, 'lmsg')" />
+                                </td>
+                                <td id="lmsg" class="messages"></td>
+                            </tr>
+                            <tr>
+                                <td>User Name</td>
+                                <td id="uName">
+                                    <input type="text" asp-for="person.UserName" onkeyup="checkName(this, 'umsg')" />
+                                </td>
+                                <td id="umsg" class="messages" runat="server" style="color: red"></td>
+                            </tr>
+                            <tr>
+                                <td>Password</td>
+                                <td id="pName">
+                                    <input type="password" asp-for="person.Password" onkeyup="checkPass(this)" />
+                                </td>
+                                <td id="pmsg" class="messages"></td>
+                            </tr>
+                            <tr>
+                                <td>Teacher</td>
+                                <td id="teacher">
+                                    <input type="radio" asp-for="TeacherYN" value="1">
+                                    <label> Teacher</label><br>
+                                    <input type="radio" asp-for="TeacherYN" value="0">
+                                    <label>Student</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Admin</td>
+                                <td id="admin">
+                                    <input type="radio" asp-for="AdminYN" value="1">
+                                    <label>Admin</label><br>
+                                    <input type="radio" asp-for="AdminYN" value="0">
+                                    <label>Regular</label>
+                                </td>
+                                <td id="gmsg" class="messages"></td>
+                            </tr>
 
-                        </tr>
-                    </table>
+                            <tr>
+                                <td>Confirmation</td>
+                                <td>
+                                    <label for="cName">please confirm that all above is correct</label>
+                                    <input id="cName" type="checkbox" name="confirmation" onclick="clearConfirm()" />
+                                </td>
+                                <td id="cmsg" class="messages"></td>
+
+                            </tr>
+                        </table>
+
+                        <input type="submit" name="submit" class="login" value="LogUp" onclick="return login1()" />
+                        <input type="reset" class="reset" value="RESET" onclick="reset2('login-msg','password-msg')" />
+
+                        <div class="mb-3 form-text text-danger " id="msgBox">
+                            @Model.msg
+                        </div>
 
 
-
-        <input type="submit" name="submit" class="login" value="LogUp" onclick="return login1()" />
-        <input type="reset" class="reset" value="RESET" onclick="reset2('login-msg','password-msg')" />
-
-        <div class="mb-3 form-text text-danger " id="msgBox">
-        @Model.msg
-        </div>
-        <div class="check">
-            Check Something
-        </div>
-
-                        </form>
+                    </form>
                     <div>
+                    </div>
+                </div>
             </div>
-        </div>
